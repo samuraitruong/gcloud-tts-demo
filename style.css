@@ -1,0 +1,15 @@
+.timer {
+  font-size: 80px;
+  height: 220px;
+  width: 220px;
+}
+.blurry-text {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.container {
+  min-height: 500px;
+}
+ul li {
+  cursor: pointer;
+}
