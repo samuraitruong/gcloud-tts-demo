@@ -9,6 +9,10 @@ const fs = require("fs-extra");
 // Creates a client
 const client = new textToSpeech.TextToSpeechClient();
 async function downloadFile(text, languageCode) {
+  const output = `./voices/${text.toLowerCase()}_${languageCode}.mp3`;
+  if (fs.existsSync(output)) {
+    return;
+  }
   // Construct the request
   const request = {
     input: { text },
@@ -21,14 +25,13 @@ async function downloadFile(text, languageCode) {
   // Performs the text-to-speech request
   const [response] = await client.synthesizeSpeech(request);
   // Write the binary audio content to a local file
-  const output = `./voices/${text.toLowerCase()}_${languageCode}.mp3`;
 
   await fs.writeFile(output, response.audioContent, "binary");
   console.log("Audio content written to file:", output);
 }
 // main function
 (async () => {
-  const list = await fs.readJson("oxford-500.json");
+  const list = await fs.readJson("oxford-3000.json");
   for (var word of list) {
     await downloadFile(word, "en-US");
     await downloadFile(word, "en-UK");
